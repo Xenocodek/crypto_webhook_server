@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Pay Webhook Server</title>
+    <style>
+        :root {
+            --primary-color: #4a6cf7;
+            --secondary-color: #6c757d;
+            --success-color: #28a745;
+            --background-color: #f8f9fa;
+            --card-bg-color: #ffffff;
+            --text-color: #212529;
+            --border-radius: 8px;
+            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background-color: var(--card-bg-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+        }
+        
+        .header h1 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .header p {
+            color: var(--secondary-color);
+            font-size: 1.2rem;
+        }
+        
+        .status-card {
+            background-color: var(--card-bg-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .status-indicator {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--success-color);
+            margin-right: 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7);
+            }
+            
+            70% {
+                transform: scale(1);
+                box-shadow: 0 0 0 10px rgba(40, 167, 69, 0);
+            }
+            
+            100% {
+                transform: scale(0.95);
+                box-shadow: 0 0 0 0 rgba(40, 167, 69, 0);
+            }
+        }
+        
+        .status-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: var(--success-color);
+        }
+        
+        .endpoints-card {
+            background-color: var(--card-bg-color);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .endpoints-card h2 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .endpoint-list {
+            list-style: none;
+        }
+        
+        .endpoint-item {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .endpoint-item:last-child {
+            border-bottom: none;
+        }
+        
+        .endpoint-name {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .endpoint-path {
+            background-color: #f1f1f1;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            color: var(--secondary-color);
+            font-size: 0.9rem;
+        }
+        
+        .version-badge {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-left: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Crypto Pay Webhook Server</h1>
+            <p>Сервер для обработки уведомлений от Crypto Pay и отправки сообщений пользователям через Telegram</p>
+        </div>
+        
+        <div class="status-card">
+            <div class="status-indicator"></div>
+            <span class="status-text">Сервер работает</span>
+            <div class="version-badge">v{{ version }}</div>
+        </div>
+        
+        <div class="endpoints-card">
+            <h2>Доступные эндпоинты</h2>
+            <ul class="endpoint-list">
+                {% for name, path in endpoints.items() %}
+                <li class="endpoint-item">
+                    <span class="endpoint-name">{{ name }}</span>
+                    <span class="endpoint-path">{{ path }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="footer">
+            <p>© 2025 Crypto Pay Webhook Server. Все права защищены.</p>
+        </div>
+    </div>
+</body>
+</html> 
